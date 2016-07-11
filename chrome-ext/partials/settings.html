@@ -1,0 +1,98 @@
+<div class="card">
+	<a href="#/default" class="title hover-link">
+		<i class="icon material-icons">arrow_back</i>
+		<div class="text">Retour</div>
+	</a>
+</div>
+
+<div class="card">
+	<div class="title">
+		<i class="icon green-background material-icons md-white">home</i>
+		<div class="text">Mes Jeedom</div>
+	</div>
+
+	<div class="body row" ng-if="!Options.apiKey">
+		<div class="text">
+			<i>Aucun Jeedom enregistré !</i>
+		</div>
+	</div>
+
+	<div class="body row" ng-if="Options.apiKey">
+		<i class="icon material-icons">chevron_right</i>
+		<div class="text">
+			<span>{{Options.name}}</span>	
+			<i class="material-icons right pointer red-text" ng-click="removeJeedom()">delete</i>
+			<i class="material-icons right pointer blue-text" ng-click="editJeedom()">edit</i>
+		</div>
+	</div>
+
+	<div class="body row hover-link border-top" ng-if="!showAddJeedom&&!Options.name" ng-click="toggleShowAddJeedom()">
+		<i class="icon material-icons">add</i>
+		<div class="text">
+			<span>Ajouter</span>
+		</div>
+	</div>
+</div>
+
+
+<div class="card" ng-if="showAddJeedom">
+	<div class="title">
+		<i class="icon green-background material-icons md-white">settings</i>
+		<div class="text">Réglages</div>
+	</div>
+
+	<div class="body row">
+
+		<i class="icon material-icons">label</i>
+		<div class="text">
+			<input class="material" ng-model="Options.name" placeholder="Libellé" />
+		</div>
+	</div>
+
+	<div class="body row">
+
+		<i class="icon material-icons">link</i>
+		<div class="text">
+			<input class="material" ng-model="Options.base" placeholder="Base URL" />
+		</div>
+	</div>
+
+	<div class="body row">
+
+		<i class="icon material-icons">vpn_key</i>
+		<div class="text">
+			<input class="material" ng-model="Options.apiKey" placeholder="Jeedom API Key" />
+		</div>
+	</div>
+
+	<div class="body row hover-link" ng-click="saveJeedom()">
+		<i class="icon material-icons">done</i>
+		<div class="text">
+			<span>Valider</span>
+		</div>
+	</div>
+
+</div>
+
+<div class="card">
+
+	<div class="title">
+		<i class="icon green-background material-icons md-white">info_outline</i>
+		<div class="text">A propos</div>
+	</div>
+
+	<div class="body row">
+		<i class="icon material-icons">call_split</i>
+		<span class="text">v.{{Manifest.version}}</span>
+	</div>
+
+	<div class="body row hover-link">
+		<i class="icon material-icons">person</i>
+		<span class="text">Etienne Liorzou</span>
+	</div>
+
+	<div class="body row hover-link">
+		<i class="icon fa fa-github-alt"></i>
+		<span class="text">Page GitHub du projet</span>
+	</div>
+</div>

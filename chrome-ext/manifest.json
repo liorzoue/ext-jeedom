@@ -1,0 +1,24 @@
+{
+	"name" :"Jeedom",
+	"version" :"0.1.0",
+	"manifest_version": 2,
+	"description" :"Jeedom...",
+	"browser_action" :
+	{
+		"default_popup" :"popup.html"
+	},
+	"permissions": [
+		"storage",
+		"background",
+		"notifications",
+		"<all_urls>"
+	],
+	"background": {
+		"page": "background.html"
+	},
+	"icons": { 
+		"512": "img/house512.png"
+	},
+
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}
