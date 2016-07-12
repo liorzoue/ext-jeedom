@@ -52,6 +52,16 @@ JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', function($resource, 
 				detailById: function (id) {
 					return makeJsonRpcRequest({ method: 'eqLogic::fullById', params: {id: id}});
 				}
+			},
+
+			Scenarios: {
+				getAll: function () {
+					return makeJsonRpcRequest({ method: 'scenario::all'});
+				},
+
+				detailById: function (id) {
+					return makeJsonRpcRequest({ method: 'scenario::byId', params: {id: id}});
+				}
 			}
 
 		};

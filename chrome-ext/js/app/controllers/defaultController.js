@@ -59,17 +59,41 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		});
 	}
 
+	$scope.changeSearchItem = function (index) {
+		$scope.checkedItem = index;
+		$scope.SearchList = $scope.Options[$scope.searchItem[index].id];
+	}
+
 	_gaq.push(['_trackPageview', '/']);
 
 	$scope.Options = jeedomStorage.load();
 	$scope.display_message = false;
 	$scope.parseFloat = parseFloat;
 
+	$scope.searchItem = [
+		{
+			name: "Equipements",
+			id: "Equipements"
+		},
+		{
+			name: "Scénarios",
+			id: "Scenarios"
+		}
+	];
+	$scope.checkedItem = 1;
+
 	var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
 
 	Jeedom.Version().then(function (result) { $scope.Options.Version = result; });
 	Jeedom.Updates.getAll().then(function (result) { $scope.Options.Updates = $filter('filter')(result, {status: 'Update'}); });
-	Jeedom.Equipements.getAll().then(function (result) { $scope.Options.Equipements = result; });
+	Jeedom.Equipements.getAll().then(function (result) { 
+		$scope.Options.Equipements = result;
+		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem]];
+	});
+	Jeedom.Scenarios.getAll().then(function (result) { 
+		$scope.Options.Scenarios = result; 
+		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem]];
+	});
 
 	$scope.getMessages();
 	

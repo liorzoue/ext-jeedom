@@ -10,4 +10,4 @@ JeedomApp
         jsonrpcConfigProvider.set({
             url: 'http://my.jeedom.url:8080/core/api/jeeApi.php'
         });
-    });
+});
