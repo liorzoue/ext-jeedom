@@ -2,9 +2,13 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone) {
 
 	$scope.showEq = function (eqId) {
-		$scope.eq = null;
-		$scope.EquipementDetail = null;
-		Jeedom.Equipements.detailById(eqId).then(function (result) { $scope.EquipementDetail = result; });
+		$scope.DetailItem = null;
+		Jeedom[$scope.searchItem[$scope.checkedItem].id].detailById(eqId).then(function (result) { 
+			$scope.eq.name = '';
+			$scope.graphDetail = null;
+			$scope.DetailItem = result; 
+			console.log(result);
+		});
 	};
 
 	$scope.getCommandGraph = function(item, cmd) {
@@ -69,6 +73,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	$scope.Options = jeedomStorage.load();
 	$scope.display_message = false;
 	$scope.parseFloat = parseFloat;
+	$scope.eq = {};
 
 	$scope.searchItem = [
 		{
@@ -80,7 +85,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 			id: "Scenarios"
 		}
 	];
-	$scope.checkedItem = 1;
+	$scope.checkedItem = 0;
 
 	var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
 
@@ -88,11 +93,12 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	Jeedom.Updates.getAll().then(function (result) { $scope.Options.Updates = $filter('filter')(result, {status: 'Update'}); });
 	Jeedom.Equipements.getAll().then(function (result) { 
 		$scope.Options.Equipements = result;
-		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem]];
+		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem].id];
 	});
+
 	Jeedom.Scenarios.getAll().then(function (result) { 
 		$scope.Options.Scenarios = result; 
-		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem]];
+		$scope.SearchList = $scope.Options[$scope.searchItem[$scope.checkedItem].id];
 	});
 
 	$scope.getMessages();

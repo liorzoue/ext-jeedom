@@ -54,22 +54,22 @@
 		</div>
 	</div>
 
-	<div class="body row hover-link" ng-hide="!eq||eq==''||!eq.name" ng-repeat="item in SearchList | filter:eq | limitTo:10" ng-click="showEq(item.id)">
+	<div class="body row hover-link" ng-hide="!eq||eq==''||!eq.name" ng-repeat="item in SearchList | filter:{name: eq.name, isVisible: '1'} | limitTo:10" ng-click="showEq(item.id)">
 		<i class="icon"></i><div class="text">{{item.name}}</div>
 	</div>
 
 </div>
 
-<div class="card" ng-if="EquipementDetail">
+<div class="card" ng-if="DetailItem&&!DetailItem.lastLaunch">
 	<div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
-		<div class="text">{{EquipementDetail.name}}</div>
+		<div class="text">{{DetailItem.name}}</div>
 	</div>
 
-	<div class="body row" ng-repeat="item in EquipementDetail.cmds | filter:{type: 'info'}">
+	<div class="body row" ng-repeat="item in DetailItem.cmds | filter:{type: 'info'}">
 		<i class="icon"></i>
 		<div class="text">{{item.name}}</div>
 		<div class="badge no-margin-right">{{item.currentValue}} {{item.unite}}</div>
-		<i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized" ng-click="getCommandGraph(EquipementDetail, item)">show_chart</i>
+		<i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized" ng-click="getCommandGraph(DetailItem, item)">show_chart</i>
 	</div>
 
 	<div class="separator"></div>
@@ -96,6 +96,26 @@
 	</div>
 </div>
 
+<div class="card" ng-if="DetailItem&&DetailItem.lastLaunch">
+	<div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
+		<div class="text">{{DetailItem.name}}</div>
+	</div>
+
+	<div class="body row">
+		<i class="icon material-icons">group_work</i>
+		<div class="text">Groupe : {{DetailItem.group}}</div>
+	</div>	
+
+	<div class="body row">
+		<i class="icon material-icons">queue_play_next</i>
+		<div class="text">Etat : {{DetailItem.state}}</div>
+	</div>
+
+	<div class="body row">
+		<i class="icon material-icons">access_time</i>
+		<div class="text">{{DetailItem.lastLaunch}}</div>
+	</div>
+</div>
 <div class="card" ng-if="graphDetail">
 	<div class="title"> <i class="icon green-background material-icons md-white">show_chart</i>
 		<div class="text">{{graphDetail.name}}</div>

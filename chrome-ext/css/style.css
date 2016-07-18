@@ -64,6 +64,9 @@ a {
     padding: 0.10rem 0.35rem;
     border-radius: 1rem;
     margin: 0.20rem 0.40rem; }
+    .card .badge .material-icons {
+      margin-top: -0.1rem;
+      text-align: center; }
 
 .pointer,
 .delete,
@@ -84,10 +87,6 @@ a {
   transition: all 200ms ease-in-out; }
   .hover-rotate:hover {
     transform: rotate(90deg); }
-
-.badge .material-icons {
-  margin-top: -0.1rem;
-  text-align: center; }
 
 .green-background {
   background-color: #42d692; }
@@ -112,15 +111,7 @@ a {
     height: 1.1em;
     background: white;
     cursor: pointer; }
-  .checkbox:checked:before {
-    transform: rotate(-45deg);
-    height: .45em;
-    border-color: black;
-    border-top-style: none;
-    border-right-style: none; }
   .checkbox:before {
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     content: "";
     position: absolute;
@@ -129,6 +120,12 @@ a {
     width: 0.75em;
     height: 0.75em;
     border: 1px solid #aaa; }
+  .checkbox:checked:before {
+    transform: rotate(-45deg);
+    height: .45em;
+    border-color: black;
+    border-top-style: none;
+    border-right-style: none; }
 
 .bar-chart {
   display: flex;
