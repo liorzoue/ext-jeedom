@@ -1,5 +1,5 @@
-var JeedomControllers = angular.module('MeteoControllers', ['ngResource', 'ngRoute', 'LocalStorageModule']);
-var JeedomApp = angular.module('JeedomApp', ['MeteoControllers', 'angular-jsonrpc-client']);
+var JeedomControllers = angular.module('JeedomControllers', ['ngResource', 'ngRoute', 'LocalStorageModule']);
+var JeedomApp = angular.module('JeedomApp', ['JeedomControllers', 'angular-jsonrpc-client']);
 
 JeedomApp
 	.config(function (localStorageServiceProvider, jsonrpcConfigProvider) {

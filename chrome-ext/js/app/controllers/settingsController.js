@@ -1,4 +1,5 @@
-JeedomControllers.controller('settingsCtrl', ['$scope', '$location', '$filter', 'jeedomStorage', 'Manifest', function ($scope, $location, $filter, jeedomStorage, Manifest) {	
+JeedomControllers.controller('settingsCtrl', ['$scope', '$location', '$filter', 'jeedomStorage', 'Manifest', 
+	function ($scope, $location, $filter, jeedomStorage, Manifest) {	
 	_gaq.push(['_trackPageview', '/settings']);
 	$scope.addJeedom = false;
 
