@@ -1,10 +1,26 @@
-JeedomControllers.controller('backgroundCtrl', 
-	['$scope', '$interval', 'Icone', 'Browser',
-	function ($scope, $interval, Icone, Browser) {
+JeedomControllers.controller('backgroundCtrl', ['$scope', '$interval', 'Icone', 'Browser', 'JeedomService', 'jeedomStorage',
+    function ($scope, $interval, Icone, Browser, JeedomService, jeedomStorage) {
 
-	function action() {	};
+    $scope.Options = jeedomStorage.load();
+    var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
 
-	action();
-	
-	$interval(action, 5*60*1000);
+    $scope.getMessages = function () {
+        Jeedom.Messages.getAll().then(function (result) {
+            $scope.Options.Messages = result;
+
+            if (result.length>0) {
+                Icone.set(result.length);
+            } else {
+                Icone.set('');
+            }
+        });
+    }
+
+    function action() {	
+        $scope.getMessages();
+    };
+
+    action();
+
+    $interval(action, 5*60*1000);
 }]);
