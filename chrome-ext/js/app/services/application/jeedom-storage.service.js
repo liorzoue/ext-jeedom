@@ -7,32 +7,18 @@ JeedomApp.factory('jeedomStorage', ['myStorage', 'arrayService', function(myStor
 	}
 
 	var saveStorage = function (store, item) {
-		 if(myStorage.save(store, item)) {
-		 	return item;
-		 } else {
-		 	return null;
-		 }
+	 	if(myStorage.save(store, item)) return item;
+	 	return null;
 	}
 
 	return {
-		load: function () {
-			return loadStorage("options");
-		},
+		load: 	function ()			{ return loadStorage("options"); 			},
+		save: 	function (options) 	{ return saveStorage("options", options);	},
+		remove: function () 		{ return saveStorage("options", null); 		},
 
-		save: function (options) {
-			console.log('save', options);
-			return saveStorage("options", options);
-		},
-
-		add: function (item) {
-
+		add: function (item) { 
 			options = item;
 			return saveStorage("options", options);
-		},
-
-		remove: function () {
-			return saveStorage("options", null);
 		}
-
 	};
 }])
