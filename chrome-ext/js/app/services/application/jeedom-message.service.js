@@ -5,7 +5,6 @@ JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', 
     var _options = Storage.load();
     var _jeedom = Service(_options.base, _options.apiKey);
 
-    var _lock = false;
     var _result = null;
 
     function _addMinutes(date, minutes) { return new Date(date.getTime() + minutes*60000); }
@@ -16,14 +15,17 @@ JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', 
         return false;
     }
 
-    function Message() {
-        console.log('JeedomMessages', 'update singleton');
-
-        return new Promise (function (resolve, reject) {
-            _jeedom.Messages.getAll()
+    function _promiseMaker (functionToCall) {
+        return new Promise(function (resolve, reject) {
+            functionToCall()
                 .then(function (result) { resolve(result); })
                 .catch(function (result) { reject(result); });
-        });
+        })
+    }
+
+    function Message() {
+        console.log('JeedomMessages', 'update singleton');
+        return _promiseMaker(_jeedom.Messages.getAll);
     }
 
     return {
