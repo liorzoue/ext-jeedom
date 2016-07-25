@@ -1,5 +1,5 @@
-JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'Icone',
-	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone) {
+JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 
+	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages) {
 
 	$scope.showEq = function (eqId) {
 		$scope.DetailItem = null;
@@ -52,15 +52,8 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	}
 
 	$scope.getMessages = function () {
-		Jeedom.Messages.getAll().then(function (result) {
-			$scope.Options.Messages = result;
-
-			if (result.length>0) {
-				Icone.set(result.length);
-			} else {
-				Icone.set('');
-			}
-		});
+	 	Messages.getInstance().then(function (result) { $scope.Options.Messages = result; });
+		Icone.Update();
 	}
 
 	$scope.changeSearchItem = function (index) {
@@ -68,10 +61,15 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		$scope.SearchList = $scope.Options[$scope.searchItem[index].id];
 	}
 
+	$scope.search = function () {
+		$scope.isSearchActive = !$scope.isSearchActive;
+	}
+
 	_gaq.push(['_trackPageview', '/']);
 
 	$scope.Options = jeedomStorage.load();
 	$scope.display_message = false;
+	$scope.isSearchActive = false;
 	$scope.parseFloat = parseFloat;
 	$scope.eq = {};
 

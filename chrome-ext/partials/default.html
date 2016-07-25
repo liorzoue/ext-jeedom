@@ -7,7 +7,9 @@
 		<div class="text"> <i>Aucun Jeedom sauvegardé !</i>
 		</div>
 	</div>
+
 </div>
+
 
 <div class="card" ng-if="Options.name">
 	<div class="title"> 
@@ -32,9 +34,20 @@
 			</span>
 		</div>
 	</div>
+
+	<div class="body row hover-link" ng-click="_gaq.push(['_trackEvent', 'btn-search', 'click']); search();">
+		<i class="icon material-icons">search</i>
+		<div class="text">Rechercher</div>
+	</div>
+
+	<a class="body row hover-link" href="#/settings" onclick="_gaq.push(['_trackEvent', 'btn-settings', 'click']);">
+		<i class="icon material-icons">settings</i>
+		<div class="text">Réglages
+		</div>
+	</a>
 </div>
 
-<div class="card" ng-if="Options.name">
+<div class="card" ng-if="Options.name && isSearchActive">
 	<div class="title"> <i class="icon green-background material-icons md-white">search</i>
 		<div class="text">Rechercher</div>
 	</div>
@@ -188,16 +201,3 @@
 		</div>
 	</div>
 </div>
-
-<div class="card">
-	<div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
-		<div class="text">Informations</div>
-	</div>
-
-	<a class="body row hover-link" href="#/settings" onclick="_gaq.push(['_trackEvent', 'btn-settings', 'click']);">
-		<i class="icon material-icons">settings</i>
-		<div class="text">Réglages
-		</div>
-	</a>
-</div>
-
