@@ -86,12 +86,17 @@
 		<span class="text">v.{{Manifest.version}}</span>
 	</div>
 
-	<div class="body row hover-link">
+	<div class="body row hover-link" ng-click="_gaq.push(['_trackEvent', 'btn-website', 'click']); openUrl('http://code.liorzou.bzh/')">
 		<i class="icon material-icons">person</i>
 		<span class="text">Etienne Liorzou</span>
 	</div>
 
-	<div class="body row hover-link">
+	<div class="body row hover-link" ng-click="_gaq.push(['_trackEvent', 'btn-twitter', 'click']); openUrl('http://twitter.com/liorzoue')">
+		<i class="icon fa fa-twitter md-blue"></i>
+		<span class="text">@liorzoue</span>
+	</div>
+
+	<div class="body row hover-link" ng-click="_gaq.push(['_trackEvent', 'btn-github', 'click']); openUrl('https://github.com/liorzoue/ext-jeedom')">
 		<i class="icon fa fa-github-alt"></i>
 		<span class="text">Page GitHub du projet</span>
 	</div>

@@ -1,15 +1,9 @@
-JeedomControllers.controller('settingsCtrl', ['$scope', '$location', '$filter', 'jeedomStorage', 'Manifest', 
-	function ($scope, $location, $filter, jeedomStorage, Manifest) {	
-	_gaq.push(['_trackPageview', '/settings']);
-	$scope.addJeedom = false;
-
-	$scope.Options = jeedomStorage.load();
-	
-	$scope.Manifest = Manifest.get();
-	$scope.showAddJeedom = false;
+JeedomControllers.controller('settingsCtrl', ['$scope', '$location', '$filter', 'jeedomStorage', 'Manifest', 'Tracking',
+	function ($scope, $location, $filter, jeedomStorage, Manifest, Tracking) {	
 
 	$scope.openUrl = function (newURL) {
-		chrome.tabs.create({ url: newURL });
+		var utm = "utm_source=ext_jeedom&utm_medium=ext_settings&utm_campaign=link";
+		chrome.tabs.create({ url: newURL + "?" + utm });
 	};
 
 	$scope.saveJeedom = function () {
@@ -20,15 +14,18 @@ JeedomControllers.controller('settingsCtrl', ['$scope', '$location', '$filter', 
 
 	};
 
-	$scope.editJeedom = function () {
-		$scope.toggleShowAddJeedom();
-	}
+	$scope.toggleShowAddJeedom = function () { $scope.showAddJeedom = !$scope.showAddJeedom; }
 
-	$scope.removeJeedom = function () {
-		$scope.Options = jeedomStorage.remove();
-	}
+	Tracking.pageView('/settings');
 
-	$scope.toggleShowAddJeedom = function () {
-		$scope.showAddJeedom = !$scope.showAddJeedom;
-	}
+	$scope.editJeedom = $scope.toggleShowAddJeedom;
+	$scope.removeJeedom = jeedomStorage.remove;	
+
+	$scope.addJeedom = false;
+	$scope.showAddJeedom = false;
+
+	$scope.Options = jeedomStorage.load();
+
+	$scope.Manifest = Manifest.getInstance();
+
 }]);
