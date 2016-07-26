@@ -48,6 +48,10 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		$scope.display_message = !$scope.display_message;
 	}
 
+	$scope.toggleDisplayUpdates = function () {
+		$scope.displayUpdates = !$scope.displayUpdates;
+	}
+
 	$scope.clearAllMessages = function () {
 		Jeedom.Messages.removeAll();
 		$scope.getMessages();
@@ -68,6 +72,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	_gaq.push(['_trackPageview', '/']);
 
 	$scope.display_message = false;
+	$scope.displayUpdates = false;
 	$scope.isSearchActive = false;
 	$scope.parseFloat = parseFloat;
 	$scope.eq = {};

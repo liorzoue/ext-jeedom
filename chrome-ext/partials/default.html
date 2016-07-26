@@ -129,6 +129,7 @@
 		<div class="text">{{DetailItem.lastLaunch}}</div>
 	</div>
 </div>
+
 <div class="card" ng-if="graphDetail">
 	<div class="title"> <i class="icon green-background material-icons md-white">show_chart</i>
 		<div class="text">{{graphDetail.name}}</div>
@@ -198,6 +199,42 @@
 		<i class="icon material-icons">keyboard_arrow_up</i>
 		<div class="text">
 			Masquer les messages
+		</div>
+	</div>
+</div>
+
+<div class="card" ng-if="Options.Updates.length>0">
+	<div class="title"> <i class="icon green-background material-icons md-white">update</i>
+		<div class="text">Mises à jour</div>
+	</div>
+
+	<div class="body row" ng-repeat="update in Options.Updates | limitTo:1">
+		<i class="icon"></i>
+		<div class="text">{{getMessageText(update.name)}}</div>
+		<i class="badge icon material-icons hover-link">update</i>
+	</div>
+
+	<div class="body row fade" ng-repeat="update in Options.Updates | limitTo:10" ng-if="displayUpdates && $index > 0">
+		<i class="icon"></i>
+		<div class="text">{{getMessageText(update.name)}}</div>
+		<i class="badge icon material-icons hover-link">update</i>
+	</div>
+
+	<div class="body row hover-link" ng-if="!displayUpdates && Options.Updates.length>1" ng-click="toggleDisplayUpdates()">
+		<i class="icon material-icons">keyboard_arrow_down</i>
+		<div class="text" ng-if="Options.Updates.length==2">
+			Afficher la mise à jour supplémentaire...
+		</div>
+		<div class="text" ng-if="Options.Updates.length>2">
+			Afficher les autres mises à jour...
+		</div>
+
+	</div>
+
+	<div class="body row hover-link" ng-if="displayUpdates" ng-click="toggleDisplayUpdates()">
+		<i class="icon material-icons">keyboard_arrow_up</i>
+		<div class="text">
+			Masquer les mises à jour
 		</div>
 	</div>
 </div>
