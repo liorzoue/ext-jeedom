@@ -62,6 +62,10 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		Icone.Update();
 	}
 
+	$scope.doUpdates = function () {
+		Jeedom.Updates.updateAll();
+	}
+
 	$scope.changeSearchItem = function (index) {
 		$scope.checkedItem = index;
 		$scope.SearchList = $scope.Options[$scope.searchItem[index].id];

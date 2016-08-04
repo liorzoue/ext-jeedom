@@ -1,5 +1,4 @@
 JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', function($resource, jsonrpc){
-	
 
 	return function (baseUrl, apiKey) {
 		var jeedomUrl = baseUrl;
@@ -34,6 +33,10 @@ JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', function($resource, 
 			Updates: {
 				getAll: function () {
 					return makeJsonRpcRequest({ method: 'update::all'});
+				},
+
+				updateAll: function () {
+					return makeJsonRpcRequest({ method: 'update::update'});
 				}
 			},
 
