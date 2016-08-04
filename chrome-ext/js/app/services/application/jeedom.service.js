@@ -1,8 +1,11 @@
 JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', function($resource, jsonrpc){
 	
+
 	return function (baseUrl, apiKey) {
 		var jeedomUrl = baseUrl;
 		var jeedomApiKey = apiKey;
+
+		jsonrpc.changeServerUrl(null, baseUrl);
 
 		function makeJsonRpcRequest (params) {
 			var JsonResult;
