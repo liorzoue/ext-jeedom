@@ -1,7 +1,8 @@
-JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 
-	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates) {
+JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 'Tracking', 
+	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates, Tracking) {
 
 	$scope.Options = jeedomStorage.load();
+	$scope.Tracking = Tracking;
 
 	var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
 
@@ -13,6 +14,8 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 			$scope.DetailItem = result; 
 			console.log(result);
 		});
+
+		Tracking.event('search', 'click_result');
 	};
 
 	$scope.getCommandGraph = function(item, cmd) {
@@ -40,21 +43,27 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 			$scope.graphDetail.stats.executeAll();
 		});
+
+		Tracking.event('equipement', 'click_graph');
 	};
 
 	$scope.getMessageText = function (msg) { return msg.replace("\\n","<br />"); }
 
 	$scope.toggleDisplayMessages = function () {
-		$scope.display_message = !$scope.display_message;
+		$scope.displayMessage = !$scope.displayMessage;
+		Tracking.event('messages', $scope.displayMessage ? 'show' : 'hide');
 	}
 
 	$scope.toggleDisplayUpdates = function () {
 		$scope.displayUpdates = !$scope.displayUpdates;
+		Tracking.event('updates', $scope.displayUpdates ? 'show' : 'hide');
 	}
 
 	$scope.clearAllMessages = function () {
 		Jeedom.Messages.removeAll();
 		$scope.getMessages();
+
+		Tracking.event('messages', 'remove_all');
 	}
 
 	$scope.getMessages = function () {
@@ -64,18 +73,23 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	$scope.doUpdates = function () {
 		Jeedom.Updates.updateAll();
+		Tracking.event('updates', 'click_do');
 	}
 
 	$scope.changeSearchItem = function (index) {
 		$scope.checkedItem = index;
 		$scope.SearchList = $scope.Options[$scope.searchItem[index].id];
+		if ($scope.isSearchActive) Tracking.event('search_item', 'changeTo_'+$scope.searchItem[index].id);
 	}
 
-	$scope.search = function () { $scope.isSearchActive = !$scope.isSearchActive; }
+	$scope.search = function () {
+		$scope.isSearchActive = !$scope.isSearchActive;
+		Tracking.event('search', $scope.isSearchActive ? 'show' : 'hide');
+	}
 
-	_gaq.push(['_trackPageview', '/']);
+	Tracking.pageView('/default');
 
-	$scope.display_message = false;
+	$scope.displayMessage = false;
 	$scope.displayUpdates = false;
 	$scope.isSearchActive = false;
 	$scope.parseFloat = parseFloat;

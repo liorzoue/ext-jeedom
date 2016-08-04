@@ -177,14 +177,14 @@
 		</div>
 	</div>
 
-	<div class="body row fade" ng-repeat="mess in Options.Messages | limitTo:10" ng-if="display_message && $index > 0">
+	<div class="body row fade" ng-repeat="mess in Options.Messages | limitTo:10" ng-if="displayMessage && $index > 0">
 		<i class="icon"></i>
 		<div class="text">
 			{{getMessageText(mess.message)}}
 		</div>
 	</div>
 
-	<div class="body row hover-link" ng-if="!display_message && Options.Messages.length>1" ng-click="toggleDisplayMessages()">
+	<div class="body row hover-link" ng-if="!displayMessage && Options.Messages.length>1" ng-click="toggleDisplayMessages()">
 		<i class="icon material-icons">keyboard_arrow_down</i>
 		<div class="text" ng-if="Options.Messages.length==2">
 			Afficher le message supplémentaire...
@@ -195,7 +195,7 @@
 
 	</div>
 
-	<div class="body row hover-link" ng-if="display_message" ng-click="toggleDisplayMessages()">
+	<div class="body row hover-link" ng-if="displayMessage" ng-click="toggleDisplayMessages()">
 		<i class="icon material-icons">keyboard_arrow_up</i>
 		<div class="text">
 			Masquer les messages
