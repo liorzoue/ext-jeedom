@@ -7,8 +7,7 @@ JeedomApp
 	  		.setPrefix('JeedomApp')
 	  		.setNotify(true, true);
 
-        // defaulting
-        jsonrpcConfigProvider.set({
-            url: 'http://my.jeedom.url:8080/core/api/jeeApi.php'
-        });
+        //* Hack de loulou : init jsonrpc-client
+        jsonrpcConfigProvider.set({ url: 'default_url' });
+        // */
 });
