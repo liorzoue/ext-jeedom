@@ -1,0 +1,3 @@
+[submodule "chrome-ext/js/app/angular/angular-jsonrpc-client"]
+	path = chrome-ext/js/app/angular/angular-jsonrpc-client
+	url = https://github.com/liorzoue/angular-jsonrpc-client
