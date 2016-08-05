@@ -1,4 +1,4 @@
-<div class="card" ng-if="!Options.name">
+<div class="card" ng-if="!Options.apiKey">
 	<div class="title"> <i class="icon green-background material-icons md-white">home</i>
 		<div class="text">Mes Jeedom</div>
 	</div>
@@ -7,11 +7,19 @@
 		<div class="text"> <i>Aucun Jeedom sauvegardé !</i>
 		</div>
 	</div>
+</div>
+
+<div class="card" ng-if="!Options.apiKey">
+	<a class="body row hover-link" href="#/settings">
+		<i class="icon material-icons">settings</i>
+		<div class="text">Réglages
+		</div>
+	</a>
 
 </div>
 
 
-<div class="card" ng-if="Options.name">
+<div class="card" ng-if="Options.apiKey">
 	<div class="title"> 
 		<i class="icon green-background material-icons md-white">home</i>
 		<div class="text">{{Options.name}}</div>
@@ -47,7 +55,7 @@
 	</a>
 </div>
 
-<div class="card" ng-if="Options.name && isSearchActive">
+<div class="card" ng-if="Options.apiKey && isSearchActive">
 	<div class="title"> <i class="icon green-background material-icons md-white">search</i>
 		<div class="text">Rechercher</div>
 	</div>
