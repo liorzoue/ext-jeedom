@@ -87,8 +87,6 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		Tracking.event('search', $scope.isSearchActive ? 'show' : 'hide');
 	}
 
-	Tracking.pageView('/default');
-
 	$scope.displayMessage = false;
 	$scope.displayUpdates = false;
 	$scope.isSearchActive = false;
@@ -122,4 +120,5 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	$scope.getMessages();
 	
+	Tracking.pageView('/default');
 }]);
