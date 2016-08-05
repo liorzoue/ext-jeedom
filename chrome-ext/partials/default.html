@@ -213,7 +213,6 @@
 	<div class="body row" ng-repeat="update in Options.Updates | limitTo:1">
 		<i class="icon"></i>
 		<div class="text">{{getMessageText(update.name)}}</div>
-		<i class="badge icon material-icons hover-link">update</i>
 	</div>
 
 	<div class="body row fade" ng-repeat="update in Options.Updates | limitTo:10" ng-if="displayUpdates && $index > 0">
