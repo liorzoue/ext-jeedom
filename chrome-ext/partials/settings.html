@@ -11,13 +11,13 @@
 		<div class="text">Mes Jeedom</div>
 	</div>
 
-	<div class="body row" ng-if="!Options.apiKey">
+	<div class="body row" ng-if="!Options.apiKey&&!Options.name&&!Options.base">
 		<div class="text">
 			<i>Aucun Jeedom enregistré !</i>
 		</div>
 	</div>
 
-	<div class="body row" ng-if="Options.apiKey">
+	<div class="body row" ng-if="Options.apiKey||Options.name||Options.base">
 		<i class="icon material-icons">chevron_right</i>
 		<div class="text">
 			<span>{{Options.name}}</span>	
