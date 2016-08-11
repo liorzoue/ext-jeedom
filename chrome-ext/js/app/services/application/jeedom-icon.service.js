@@ -8,7 +8,6 @@ JeedomApp.factory('JeedomIcon', ['Icone', 'JeedomMessages', 'JeedomUpdates', fun
 
             _messages.then(function (result) {
                 var count = result.length;
-                console.log('JeedomIcon', result);
                 if (result.length>0) { Icone.set(result.length); }
                 else { Icone.set(''); }
 

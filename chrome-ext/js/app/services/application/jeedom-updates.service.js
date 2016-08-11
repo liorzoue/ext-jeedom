@@ -1,4 +1,4 @@
-JeedomApp.factory('JeedomUpdates', ['$filter', 'Icone', 'JeedomService', 'jeedomStorage', function($filter,Icone, Service, Storage){
+JeedomApp.factory('JeedomUpdates', ['$filter', 'Icone', 'JeedomService', 'jeedomStorage', 'Logging', function($filter,Icone, Service, Storage, Log){
     var _instance;
     var _expireAt;
 
@@ -24,13 +24,13 @@ JeedomApp.factory('JeedomUpdates', ['$filter', 'Icone', 'JeedomService', 'jeedom
     }
 
     function Updates() {
-        console.log('JeedomUpdates', 'update singleton');
+        Log.write(Log.level.INFO, 'JeedomUpdates', 'singleton: update');
         return _promiseMaker(_jeedom.Updates.getAll);
     }
 
     return {
-        getInstance: function () {            
-            console.log('JeedomUpdates', 'getInstance');
+        getInstance: function () {
+            Log.write(Log.level.INFO, 'JeedomUpdates', 'singleton: get');
             if (_hasExpired()) {
                 _instance = new Updates();
 

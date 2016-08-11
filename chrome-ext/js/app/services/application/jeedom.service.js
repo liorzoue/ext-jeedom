@@ -1,6 +1,9 @@
-JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', function($resource, jsonrpc){
+JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', 'Logging', function($resource, jsonrpc, Log){
 
 	return function (baseUrl, apiKey) {
+		if (!baseUrl) Log.write(Log.level.WARN, 'JeedomService', 'baseUrl non renseignée');
+		if (!apiKey) Log.write(Log.level.WARN, 'JeedomService', 'apiKey non renseignée');
+
 		var jeedomUrl = baseUrl;
 		var jeedomApiKey = apiKey;
 
