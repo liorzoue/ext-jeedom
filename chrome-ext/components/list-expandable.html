@@ -1,0 +1,43 @@
+<div class="card" ng-if="$ctrl.data.list.length > 0">
+    <div class="title"> <i class="icon green-background material-icons md-white">{{$ctrl.icon}}</i>
+        <div class="text">{{$ctrl.title}}</div>
+    </div>
+
+    <div class="body row" ng-repeat="item in $ctrl.data.list | limitTo:1">
+        <i class="icon"></i>
+        <div class="text" ng-if="!$ctrl.data.tag">
+            {{item.message}}
+        </div>
+        <div class="text" ng-if="$ctrl.data.tag">
+            {{item[$ctrl.data.tag]}}
+        </div>
+    </div>
+
+    <div class="body row fade" ng-repeat="item in $ctrl.data.list | limitTo:$ctrl.data.limit" ng-if="extend && $index > 0">
+        <i class="icon"></i>
+        <div class="text" ng-if="!$ctrl.data.tag">
+            {{item.message}}
+        </div>
+        <div class="text" ng-if="$ctrl.data.tag">
+            {{item[$ctrl.data.tag]}}
+        </div>
+    </div>
+
+    <div class="body row hover-link" ng-if="!extend && $ctrl.data.list.length>1" ng-click="toggle()">
+        <i class="icon material-icons">keyboard_arrow_down</i>
+        <div class="text" ng-if="$ctrl.data.list.length==2">
+            Afficher le message supplémentaire...
+        </div>
+        <div class="text" ng-if="$ctrl.data.list.length>2">
+            Afficher les autres messages...
+        </div>
+
+    </div>
+
+    <div class="body row hover-link" ng-if="extend" ng-click="toggle()">
+        <i class="icon material-icons">keyboard_arrow_up</i>
+        <div class="text">
+            Masquer les messages
+        </div>
+    </div>
+</div>

@@ -58,6 +58,10 @@ JeedomApp.factory('JeedomService', ['$resource', 'jsonrpc', 'Logging', function(
 					return makeJsonRpcRequest({ method: 'eqLogic::all'});
 				},
 
+				getById: function (id) {
+					return makeJsonRpcRequest({ method: 'eqLogic::byId', params: {id: id}});
+				},
+
 				detailById: function (id) {
 					return makeJsonRpcRequest({ method: 'eqLogic::fullById', params: {id: id}});
 				}

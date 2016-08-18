@@ -1,5 +1,5 @@
-JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 'Tracking', 
-	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates, Tracking) {
+JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 'JeedomFavorites', 'Tracking', 
+	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates, Favs, Tracking) {
 
 	$scope.Options = jeedomStorage.load();
 
@@ -65,7 +65,10 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	}
 
 	$scope.getMessages = function () {
-	 	Messages.getInstance().then(function (result) { $scope.Options.Messages = result; });
+	 	Messages.getInstance().then(function (result) { 
+	 		$scope.Options.Messages = result;
+	 		$scope.MenuBadges.push({id: 'messages', count: $scope.Options.Messages.length, color: "blue", icon: 'message'});
+	 	});
 		Icone.Update();
 	}
 
@@ -85,8 +88,30 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		Tracking.event('search', $scope.isSearchActive ? 'show' : 'hide');
 	}
 
+	$scope.showFavs = function () {
+		$scope.displayFavs = !$scope.displayFavs;
+		if ($scope.displayFavs) $scope.Favs = Favs.Get();
+		console.log('favs', $scope.Favs);
+		Tracking.event('favs', $scope.displayFavs ? 'show' : 'hide');
+	}
+
+	$scope.isFavorite = function (what, id) {
+		var ls = $filter('filter')(Favs.Get(), {type: what, id: id});
+		return ls.length == 1;	
+	}
+
+	$scope.toggleFavorite = function (what, id) {
+		var is = $scope.isFavorite(what, id);
+
+		if(is) Favs.Remove(what, id);
+		else Favs.Add(what, id);
+
+		Tracking.event('favs', is ? 'remove' : 'add');
+	}
+
 	$scope.init = function () {
 
+		$scope.displayFavs = false;
 		$scope.displayMessage = false;
 		$scope.displayUpdates = false;
 		$scope.isSearchActive = false;
@@ -105,7 +130,18 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		];
 		$scope.checkedItem = 0;
 
-		Jeedom.Version().then(function (result) { $scope.Options.Version = result; });
+		$scope.Options.Messages = [];
+		$scope.MenuBadges = [];
+		$scope.Menu = [];
+		Jeedom.Version().then(function (result) { 
+			$scope.Options.Version = result;
+			$scope.Menu = [
+				{type: 'text', text: 'v.'+$scope.Options.Version, icon: 'device_hub' },
+				{type: 'link', text: 'Réglages', link:'#/settings', icon: 'settings'},
+				{type: 'link', text: 'Rechercher', link:'#/default/search', icon: 'search'},
+			];
+		});
+
 		Updates.getInstance().then(function (result) { $scope.Options.Updates = result; });
 
 		Jeedom.Equipements.getAll().then(function (result) { 
@@ -119,12 +155,10 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		});
 
 		$scope.getMessages();
+
 	}
 
-	console.log($scope.Options.apiKey == null);
-	if ($scope.Options.apiKey) {
-		$scope.init();
-	}
+	if ($scope.Options.apiKey) $scope.init();
 
 	Tracking.pageView('/default');
 }]);

@@ -5,7 +5,7 @@ JeedomApp.factory('arrayService', [function(){
 			return arr;
 		},
 
-        isInArray: function (arr, elt) {
+        hasItem: function (arr, elt) {
             return arr.indexOf(elt) > 0;
         }
 	}

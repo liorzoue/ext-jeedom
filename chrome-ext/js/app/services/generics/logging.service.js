@@ -1,9 +1,9 @@
 JeedomApp.factory('Logging', [function(){
     var _levels = {
-        DEBUG:  0,
-        INFO:   10,
-        WARN:   20,
-        ERROR:  30
+        DEBUG:  'DEBUG',
+        INFO:   'INFO',
+        WARN:   'WARN',
+        ERROR:  'ERROR'
     };
 
     function _log (level, what, message) {
