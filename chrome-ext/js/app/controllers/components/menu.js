@@ -1,3 +1,4 @@
-JeedomControllers.controller('menuCtrl', ['$scope', function($scope){
-    
+JeedomControllers.controller('menuCtrl', ['$scope', 'Logging', function($scope, Log){
+    var controllerName = 'menuCtrl';
+
 }])

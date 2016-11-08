@@ -14,33 +14,6 @@ JeedomApp
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|local|data|chrome-extension):/);
 });
 
-JeedomApp.component('cardRetour', {
-    templateUrl: '../components/retour.html',
-    bindings: { url: '=' }
-});
-
-JeedomApp.component('cardMenu', {
-    templateUrl: '../components/menu.html',
-    controller: 'menuCtrl',
-    bindings: { 
-        title: '=',
-        icon:  '=',
-        badge: '=',
-        items: '=' 
-    }
-});
-
-JeedomApp.component('listExpandable', {
-    templateUrl: '../components/list-expandable.html',
-    controller: 'listExpandableCtrl',
-    bindings: { 
-        title: '=',
-        icon: '=',
-        data: '='
-    }
-});
-
-
 // Track basic JavaScript errors
 window.addEventListener('error', function(e) {
     _gaq.push([

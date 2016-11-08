@@ -1,6 +1,17 @@
 <div class="card" ng-if="$ctrl.data.list.length > 0">
     <div class="title"> <i class="icon green-background material-icons md-white">{{$ctrl.icon}}</i>
         <div class="text">{{$ctrl.title}}</div>
+        <div class="badge white-text" ng-repeat="badge in $ctrl.badges" ng-if="badge.count>0" ng-class="badge.color+'-background'">
+            {{badge.count}}
+            <i class="material-icons">{{badge.icon}}</i>
+        </div>
+    </div>
+
+    <div class="body row" ng-if="$ctrl.data.list.length==0">
+        <i class="icon"></i>
+        <div class="text">
+            Aucun résultat
+        </div>
     </div>
 
     <div class="body row" ng-repeat="item in $ctrl.data.list | limitTo:1">
@@ -25,6 +36,7 @@
 
     <div class="body row hover-link" ng-if="!extend && $ctrl.data.list.length>1" ng-click="toggle()">
         <i class="icon material-icons">keyboard_arrow_down</i>
+
         <div class="text" ng-if="$ctrl.data.list.length==2">
             Afficher le message supplémentaire...
         </div>

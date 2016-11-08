@@ -1,8 +1,7 @@
-JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 'JeedomFavorites', 'Tracking', 
-	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates, Favs, Tracking) {
+JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', 'JeedomService', 'jeedomStorage', 'myDateTime', 'JeedomIcon', 'JeedomMessages', 'JeedomUpdates', 'JeedomFavorites', 'Tracking', 'Logging',
+	function ($scope, $location, $filter, JeedomService, jeedomStorage, myDateTime, Icone, Messages, Updates, Favs, Tracking, Log) {
 
 	$scope.Options = jeedomStorage.load();
-
 	$scope.Tracking = Tracking;
 
 	var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
@@ -47,16 +46,6 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	$scope.getMessageText = function (msg) { return msg.replace("\\n","<br />"); }
 
-	$scope.toggleDisplayMessages = function () {
-		$scope.displayMessage = !$scope.displayMessage;
-		Tracking.event('messages', $scope.displayMessage ? 'show' : 'hide');
-	}
-
-	$scope.toggleDisplayUpdates = function () {
-		$scope.displayUpdates = !$scope.displayUpdates;
-		Tracking.event('updates', $scope.displayUpdates ? 'show' : 'hide');
-	}
-
 	$scope.clearAllMessages = function () {
 		Jeedom.Messages.removeAll();
 		$scope.getMessages();
@@ -68,24 +57,24 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	 	Messages.getInstance().then(function (result) { 
 	 		$scope.Options.Messages = result;
 	 		$scope.MenuBadges.push({id: 'messages', count: $scope.Options.Messages.length, color: "blue", icon: 'message'});
+	 		Log.write(Log.level.INFO, 'getMessages', $scope.MenuBadges);
 	 	});
+		Icone.Update();
+	}
+
+	$scope.getUpdates = function () {
+		Updates.getInstance().then(function (result) { 
+			$scope.Options.Updates = result;
+	 		$scope.MenuBadges.push({id: 'updates', count: $scope.Options.Updates.length, color: "red", icon: 'update'});
+	 		Log.write(Log.level.INFO, 'getUpdates', $scope.MenuBadges);
+		});
+
 		Icone.Update();
 	}
 
 	$scope.doUpdates = function () {
 		Jeedom.Updates.updateAll();
 		Tracking.event('updates', 'click_do');
-	}
-
-	$scope.changeSearchItem = function (index) {
-		$scope.checkedItem = index;
-		$scope.SearchList = $scope.Options[$scope.searchItem[index].id];
-		if ($scope.isSearchActive) Tracking.event('search_item', 'changeTo_'+$scope.searchItem[index].id);
-	}
-
-	$scope.search = function () {
-		$scope.isSearchActive = !$scope.isSearchActive;
-		Tracking.event('search', $scope.isSearchActive ? 'show' : 'hide');
 	}
 
 	$scope.showFavs = function () {
@@ -112,49 +101,36 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	$scope.init = function () {
 
 		$scope.displayFavs = false;
-		$scope.displayMessage = false;
-		$scope.displayUpdates = false;
 		$scope.isSearchActive = false;
 		$scope.parseFloat = parseFloat;
-		$scope.eq = {};
 
-		$scope.searchItem = [
-			{
-				name: "Equipements",
-				id: "Equipements"
-			},
-			{
-				name: "Scénarios",
-				id: "Scenarios"
-			}
-		];
-		$scope.checkedItem = 0;
 
 		$scope.Options.Messages = [];
 		$scope.MenuBadges = [];
-		$scope.Menu = [];
+
+		$scope.getMessages();
+		$scope.getUpdates();
+
 		Jeedom.Version().then(function (result) { 
 			$scope.Options.Version = result;
 			$scope.Menu = [
 				{type: 'text', text: 'v.'+$scope.Options.Version, icon: 'device_hub' },
 				{type: 'link', text: 'Réglages', link:'#/settings', icon: 'settings'},
 				{type: 'link', text: 'Rechercher', link:'#/default/search', icon: 'search'},
+				{type: 'link', text: 'Favoris', link: '#/default/favoris', icon: 'star'}
 			];
 		});
 
-		Updates.getInstance().then(function (result) { $scope.Options.Updates = result; });
+		
 
 		Jeedom.Equipements.getAll().then(function (result) { 
 			$scope.Options.Equipements = result;
-			$scope.changeSearchItem($scope.checkedItem);
 		});
 
 		Jeedom.Scenarios.getAll().then(function (result) { 
 			$scope.Options.Scenarios = result; 
-			$scope.changeSearchItem($scope.checkedItem);
 		});
 
-		$scope.getMessages();
 
 	}
 

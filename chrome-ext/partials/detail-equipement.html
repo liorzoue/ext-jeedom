@@ -1,0 +1,75 @@
+
+<!-- Detail Equipement -->
+<div class="card" ng-if="DetailItem&&!DetailItem.lastLaunch">
+    <div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
+        <div class="text">{{DetailItem.name}}</div>
+        <i class="badge icon material-icons hover-link" ng-click="toggleFavorite('equipement', DetailItem.id)" ng-if="!isFavorite('equipement', DetailItem.id)">star_outline</i>
+        <i class="badge icon material-icons hover-link" ng-click="toggleFavorite('equipement', DetailItem.id)" ng-if="isFavorite('equipement', DetailItem.id)">star</i>
+    </div>
+
+    <div class="body row" ng-repeat="item in DetailItem.cmds | filter:{type: 'info'}">
+        <i class="icon"></i>
+        <div class="text">{{item.name}}</div>
+        <div class="badge no-margin-right">{{item.currentValue}} {{item.unite}}</div>
+        <i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized" ng-click="getCommandGraph(DetailItem, item)">show_chart</i>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="body row hover-link" ng-repeat="item in EquipementDetail.cmds | filter:{type: 'action', isVisible: '1'}" ng-switch="item.logicalId">
+        <i class="icon material-icons" ng-switch-when="color">colorize</i>
+        <i class="icon material-icons" ng-switch-when="refresh">refresh</i>
+        <i class="icon material-icons" ng-switch-when="luminosity">brightness_low</i>
+        <i class="icon material-icons" ng-switch-default>input</i>
+            
+        
+        <div class="text">{{item.name}}</div>
+        <!--
+        <div ng-switch on="item.subType" >
+            <div class="action hover-link" ng-switch-when="slider">
+                <input type="range" value="{{item.currentValue}}" max="{{item.configuration.maxValue}}" min="{{item.configuration.minValue}}" step="" />
+            </div>
+            <div class="action hover-link" ng-switch-when="color">
+                <input type="color" value="{{item.currentValue}}" />
+            </div>
+            <div class="action hover-link" ng-switch-default>ok</div>
+        </div>
+        -->
+    </div>
+</div>
+
+
+<!-- Graphique -->
+<div class="card" ng-if="graphDetail">
+    <div class="title"> <i class="icon green-background material-icons md-white">show_chart</i>
+        <div class="text">{{graphDetail.name}}</div>
+    </div>
+    <div class="body row bar-chart">
+        <i class="icon material-icons">show_chart</i>
+        <div 
+            class="bar" 
+            ng-repeat="item in graphDetail.result"
+            style="height: {{90*(parseFloat(item.value)-graphDetail.stats.results.min) / (graphDetail.stats.results.max-graphDetail.stats.results.min)}}%;"></div>
+    </div>
+
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_top</i>
+        <div class="text">Maximum</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.max | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_center</i>
+        <div class="text">Moyenne</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.mean | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_center</i>
+        <div class="text">Mediane</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.median | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_bottom</i>
+        <div class="text">Minimum</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.min | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+</div>
