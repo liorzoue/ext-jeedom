@@ -3,7 +3,7 @@ JeedomControllers.controller('listExpandableCtrl', ['$scope', 'Tracking', 'Loggi
     //$scope.label = $ctrl.data.label;
     //$scope.icon = $ctrl.data.icon;
     $scope.extend = false;
-
+    $scope.nbSmall = 2;
     $scope.toggle = function () {
         $scope.extend = !$scope.extend;
         Tracking.event('list-expand ['+ $scope.$ctrl.title +']', $scope.extend ? 'show' : 'hide');

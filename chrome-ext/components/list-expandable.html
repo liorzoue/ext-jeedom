@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="body row" ng-repeat="item in $ctrl.data.list | limitTo:1">
+    <div class="body row" ng-repeat="item in $ctrl.data.list | limitTo:(extend ? $ctrl.data.limit : nbSmall)">
         <i class="icon"></i>
         <div class="text" ng-if="!$ctrl.data.tag">
             {{item.message}}
@@ -24,32 +24,18 @@
         </div>
     </div>
 
-    <div class="body row fade" ng-repeat="item in $ctrl.data.list | limitTo:$ctrl.data.limit" ng-if="extend && $index > 0">
-        <i class="icon"></i>
-        <div class="text" ng-if="!$ctrl.data.tag">
-            {{item.message}}
-        </div>
-        <div class="text" ng-if="$ctrl.data.tag">
-            {{item[$ctrl.data.tag]}}
-        </div>
-    </div>
+    <div class="body row hover-link border-top" ng-if="$ctrl.data.list.length>nbSmall" ng-click="toggle()">
+        <i class="icon material-icons" ng-if="!extend">keyboard_arrow_down</i>
+        <i class="icon material-icons" ng-if="extend">keyboard_arrow_up</i>
 
-    <div class="body row hover-link" ng-if="!extend && $ctrl.data.list.length>1" ng-click="toggle()">
-        <i class="icon material-icons">keyboard_arrow_down</i>
-
-        <div class="text" ng-if="$ctrl.data.list.length==2">
-            Afficher le message supplémentaire...
+        <div class="text" ng-if="!extend">
+            Afficher la suite ...
         </div>
-        <div class="text" ng-if="$ctrl.data.list.length>2">
-            Afficher les autres messages...
+
+        <div class="text" ng-if="extend">
+            Masquer 
         </div>
 
     </div>
 
-    <div class="body row hover-link" ng-if="extend" ng-click="toggle()">
-        <i class="icon material-icons">keyboard_arrow_up</i>
-        <div class="text">
-            Masquer les messages
-        </div>
-    </div>
 </div>
