@@ -21,6 +21,7 @@ JeedomApp.component('listExpandable', {
         title: '=',
         icon: '=',
         data: '=',
-        badges: '='
+        badges: '=',
+        actions: '='
     }
 });

@@ -5,6 +5,9 @@
             {{badge.count}}
             <i class="material-icons">{{badge.icon}}</i>
         </div>
+        <div class="badge hover-link" ng-repeat="action in $ctrl.actions">
+            <i ng-if="action.icon" class="material-icons">{{action.icon}}</i>
+        </div>
     </div>
 
     <div class="body row" ng-if="$ctrl.data.list.length==0">
