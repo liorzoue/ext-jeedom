@@ -23,16 +23,14 @@ JeedomControllers.controller('searchCtrl', ['$scope', 'Tracking', 'JeedomService
     });
 
     $scope.searchItem = [
-    {
-        name: "Equipements",
-        id: "Equipements"
-    },
-    {
-        name: "Scénarios",
-        id: "Scenarios"
-    }
+        {
+            name: "Equipements",
+            id: "Equipements"
+        },
+        {
+            name: "Scénarios",
+            id: "Scenarios"
+        }
     ];
     $scope.checkedItem = 0;
-
-
 }])

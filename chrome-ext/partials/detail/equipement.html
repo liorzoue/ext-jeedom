@@ -1,17 +1,16 @@
+<card-retour url="'#/default/search'"></card-retour>
 
 <!-- Detail Equipement -->
-<div class="card" ng-if="DetailItem&&!DetailItem.lastLaunch">
+<div class="card">
     <div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
         <div class="text">{{DetailItem.name}}</div>
-        <i class="badge icon material-icons hover-link" ng-click="toggleFavorite('equipement', DetailItem.id)" ng-if="!isFavorite('equipement', DetailItem.id)">star_outline</i>
-        <i class="badge icon material-icons hover-link" ng-click="toggleFavorite('equipement', DetailItem.id)" ng-if="isFavorite('equipement', DetailItem.id)">star</i>
     </div>
 
-    <div class="body row" ng-repeat="item in DetailItem.cmds | filter:{type: 'info'}">
+    <div class="body row" ng-repeat="item in DetailItem.cmds | filter:{type: 'info', isVisible: '1'}">
         <i class="icon"></i>
         <div class="text">{{item.name}}</div>
         <div class="badge no-margin-right">{{item.currentValue}} {{item.unite}}</div>
-        <i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized" ng-click="getCommandGraph(DetailItem, item)">show_chart</i>
+        <i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized == '1'" ng-click="getCommandGraph(DetailItem, item)">show_chart</i>
     </div>
 
     <div class="separator"></div>
@@ -24,20 +23,36 @@
             
         
         <div class="text">{{item.name}}</div>
-        <!--
-        <div ng-switch on="item.subType" >
-            <div class="action hover-link" ng-switch-when="slider">
-                <input type="range" value="{{item.currentValue}}" max="{{item.configuration.maxValue}}" min="{{item.configuration.minValue}}" step="" />
-            </div>
-            <div class="action hover-link" ng-switch-when="color">
-                <input type="color" value="{{item.currentValue}}" />
-            </div>
-            <div class="action hover-link" ng-switch-default>ok</div>
-        </div>
-        -->
     </div>
 </div>
 
+<div class="card">
+    <div class="title">
+        <i class="icon green-background material-icons md-white">cog</i>
+        <div class="text">Etat</div>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Dernier contact</div>
+        <div class="badge no-margin-right">{{DetailItem.status.lastCommunication}}</div>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Visibilité</div>
+        <i class="badge icon material-icons no-margin-left">{{DetailItem.isVisible ? 'done' : 'clear'}}</i>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Activé</div>
+        <i class="badge icon material-icons no-margin-left">{{DetailItem.isEnable ? 'done' : 'clear'}}</i>
+    </div>
+</div>
 
 <!-- Graphique -->
 <div class="card" ng-if="graphDetail">

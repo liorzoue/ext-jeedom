@@ -21,12 +21,12 @@ JeedomApp.config(['$routeProvider',
       }).
 
       // Détails
-      when('/detail/equipement/:id', {
-        templateUrl: '../partials/detail-equipement.html',
+      when('/detail/equipements/:id', {
+        templateUrl: '../partials/detail/equipement.html',
         controller: 'detailEquipementCtrl'
       }).
-      when('/detail/scenario/:id', {
-        templateUrl: '../partials/detail-scenario.html',
+      when('/detail/scenarios/:id', {
+        templateUrl: '../partials/detail/scenario.html',
         controller: 'detailScenarioCtrl'
       }).
 

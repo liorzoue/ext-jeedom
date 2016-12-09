@@ -21,7 +21,10 @@
         </div>
     </div>
 
-    <div class="body row hover-link" ng-hide="!eq||eq==''||!eq.name" ng-repeat="item in SearchList | filter:{name: eq.name, isVisible: '1'} | limitTo:10" ng-click="showEq(item.id)">
+    <a class="body row hover-link" 
+        ng-hide="!eq||eq==''||!eq.name" 
+        ng-repeat="item in SearchList | filter:{name: eq.name, isVisible: '1'} | limitTo:10" 
+        href="#/detail/{{searchItem[checkedItem].id.toLowerCase()}}/{{item.id}}" >
         <i class="icon"></i><div class="text">{{item.name}}</div>
-    </div>
+    </a>
 </div>
