@@ -1,0 +1,13 @@
+<div class="card error" ng-if="$ctrl.hasError">
+    <div class="title">
+        <i class="icon material-icons md-red">error</i>
+        <div class="text">{{$ctrl.message}}</div>
+    </div>
+</div>
+
+<div class="card" ng-if="$ctrl.isLoading">
+    <div class="title">
+        <i class="icon material-icons fa-spin">cached</i>
+        <div class="text">Chargement en cours...</div>
+    </div>
+</div>

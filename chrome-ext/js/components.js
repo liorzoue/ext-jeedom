@@ -3,6 +3,15 @@ JeedomApp.component('cardRetour', {
     bindings: { url: '=' }
 });
 
+JeedomApp.component('cardStatus', {
+    templateUrl: '../components/status.html',
+    bindings: { 
+        message: '=',
+        hasError: '=',
+        isLoading: '='
+    }
+});
+
 JeedomApp.component('cardMenu', {
     templateUrl: '../components/menu.html',
     controller: 'menuCtrl',

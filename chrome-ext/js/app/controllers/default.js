@@ -6,18 +6,6 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	var Jeedom = JeedomService($scope.Options.base, $scope.Options.apiKey);
 
-	$scope.showEq = function (eqId) {
-		$scope.DetailItem = null;
-		Jeedom[$scope.searchItem[$scope.checkedItem].id].detailById(eqId).then(function (result) { 
-			$scope.eq.name = '';
-			$scope.graphDetail = null;
-			$scope.DetailItem = result; 
-			console.log(result);
-		});
-
-		Tracking.event('search', 'click_result');
-	};
-
 	$scope.getCommandGraph = function(item, cmd) {
 		if (!cmd.isHistorized) return false;
 
@@ -99,6 +87,11 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	}
 
 	$scope.init = function () {
+        $scope.Error = {
+            Message: '',
+            hasError: false,
+            isLoading: true
+        };
 
 		$scope.displayFavs = false;
 		$scope.isSearchActive = false;
@@ -107,29 +100,52 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 		$scope.Options.Messages = [];
 		$scope.MenuBadges = [];
+        $scope.Menu = [
+            {type: 'link', text: 'Réglages', link:'#/settings', icon: 'settings'},
+            {type: 'link', text: 'Rechercher', link:'#/default/search', icon: 'search'},
+            {type: 'link', text: 'Favoris', link: '#/default/favoris', icon: 'star'}
+        ];
 
 		$scope.getMessages();
 		$scope.getUpdates();
 
-		Jeedom.Version().then(function (result) { 
-			$scope.Options.Version = result;
-			$scope.Menu = [
-				{type: 'text', text: 'v.'+$scope.Options.Version, icon: 'device_hub' },
-				{type: 'link', text: 'Réglages', link:'#/settings', icon: 'settings'},
-				{type: 'link', text: 'Rechercher', link:'#/default/search', icon: 'search'},
-				{type: 'link', text: 'Favoris', link: '#/default/favoris', icon: 'star'}
-			];
-		});
+		Jeedom.Version()
+            .then(function (result) { 
+    			$scope.Options.Version = result;
+    			$scope.Menu = $scope.Menu.concat([{type: 'text', text: 'v.'+$scope.Options.Version, icon: 'device_hub' }]);
+
+    		})
+            .catch(function (result) {
+                Log.write(Log.level.INFO, 'Jeedom.Version', 'catch');
+                $scope.Error.Message = 'Une erreur est survenue !';
+                $scope.Error.hasError = true;
+            })
+            .finally(function (result) {
+                Log.write(Log.level.INFO, 'Jeedom.Version', 'finally');
+                $scope.Error.isLoading = false;
+            });
 
 		
 
-		Jeedom.Equipements.getAll().then(function (result) { 
-			$scope.Options.Equipements = result;
-		});
+		Jeedom.Equipements.getAll()
+            .then(function (result) { 
+    			$scope.Options.Equipements = result;
+    		})
+            .catch(function (result) {
+                Log.write(Log.level.INFO, 'Jeedom.Equipements.getAll', 'catch');
+                $scope.Error.Message = 'Une erreur est survenue !';
+                $scope.Error.hasError = true;
+            });
 
-		Jeedom.Scenarios.getAll().then(function (result) { 
-			$scope.Options.Scenarios = result; 
-		});
+		Jeedom.Scenarios.getAll()
+            .then(function (result) { 
+    			$scope.Options.Scenarios = result; 
+    		})
+            .catch(function (result) {
+                Log.write(Log.level.INFO, 'Jeedom.Scenarios.getAll', 'catch');
+                $scope.Error.Message = 'Une erreur est survenue !';
+                $scope.Error.hasError = true;
+            });
 
 
 	}
