@@ -45,7 +45,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	 	Messages.getInstance().then(function (result) { 
 	 		$scope.Options.Messages = result;
 	 		$scope.MenuBadges.push({id: 'messages', count: $scope.Options.Messages.length, color: "blue", icon: 'message'});
-	 		Log.write(Log.level.INFO, 'getMessages', $scope.MenuBadges);
+	 		Log.write(Log.level.INFO, 'getMessages', $scope.Options.Messages);
 	 	});
 		Icone.Update();
 	}
@@ -54,7 +54,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 		Updates.getInstance().then(function (result) { 
 			$scope.Options.Updates = result;
 	 		$scope.MenuBadges.push({id: 'updates', count: $scope.Options.Updates.length, color: "red", icon: 'update'});
-	 		Log.write(Log.level.INFO, 'getUpdates', $scope.MenuBadges);
+	 		Log.write(Log.level.INFO, 'getUpdates', $scope.Options.Updates);
 		});
 
 		Icone.Update();
