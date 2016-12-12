@@ -20,15 +20,10 @@
 	<!-- Parametres -->
 	<div ng-view></div>
 	
-	<!-- 
-		Angular v.1.5.5
-		http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-modulename.js
-	 -->
-<!-- 	<script src="../js/app/angular/angular.js"></script>  --> <!-- Angular Material requires Angular.js Libraries -->
-	<script src="../js/app/angular/1.5.3/angular.min.js"></script>
-	<script src="../js/app/angular/1.5.3/angular-animate.min.js"></script>
-	<script src="../js/app/angular/1.5.3/angular-aria.min.js"></script>
-	<script src="../js/app/angular/1.5.3/angular-messages.min.js"></script>
+	<script src="../js/app/angular/1.5.8/angular.min.js"></script>
+	<script src="../js/app/angular/1.5.8/angular-animate.min.js"></script>
+	<script src="../js/app/angular/1.5.8/angular-aria.min.js"></script>
+	<script src="../js/app/angular/1.5.8/angular-messages.min.js"></script>
 
 	<!-- Stats -->
 	<script src="../js/stats.js"></script>
@@ -39,16 +34,23 @@
 	<script src="../js/app/angular/resource.js"></script>
 	<script src="../js/app/angular/route.js"></script>
 	<script src="../js/app/angular/localStorageService.js"></script>
+	<script src="../js/app/angular/dnd.min.js"></script>
 	<script src="../js/app/angular/angular-jsonrpc-client/src/angular-jsonrpc-client.js"></script>
 
 
 	<script src="../js/app.js"></script>
+	<script src="../js/components.js"></script>
 	<script src="../js/app/routes.js"></script>
 
 	<!-- Controllers -->
 	<script src="../js/app/controllers/default.js"></script>
 	<script src="../js/app/controllers/popup.js"></script>
 	<script src="../js/app/controllers/settings.js"></script>
+	<script src="../js/app/controllers/search.js"></script>
+	<script src="../js/app/controllers/components/menu.js"></script>
+	<script src="../js/app/controllers/components/listExpandable.js"></script>
+	<script src="../js/app/controllers/detail/equipement.js"></script>
+	<script src="../js/app/controllers/detail/scenario.js"></script>
 
 	<!-- Services -->
 	<script src="../js/app/services/generics/array.service.js"></script>
@@ -56,6 +58,7 @@
 	<script src="../js/app/services/generics/date-time.service.js"></script>
 	<script src="../js/app/services/generics/icon.service.js"></script>
 	<script src="../js/app/services/generics/manifest.service.js"></script>
+	<script src="../js/app/services/generics/logging.service.js"></script>
 	<script src="../js/app/services/generics/tracking.service.js"></script>
 	<script src="../js/app/services/generics/my-storage.service.js"></script>
 
@@ -64,6 +67,7 @@
 	
 	<script src="../js/app/services/application/jeedom-message.service.js"></script>
 	<script src="../js/app/services/application/jeedom-updates.service.js"></script>
+	<script src="../js/app/services/application/jeedom-favorites.service.js"></script>
 	<script src="../js/app/services/application/jeedom-icon.service.js"></script>
 </body>
 </html>

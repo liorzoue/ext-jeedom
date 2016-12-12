@@ -168,6 +168,9 @@ a {
 .grey-background {
   background-color: grey; }
 
+.no-background {
+  background-color: white; }
+
 .material-icons {
   font-size: inherit; }
   .material-icons.md-red {

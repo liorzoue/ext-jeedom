@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="title"> 
+        <i class="icon green-background material-icons md-white">{{$ctrl.icon?$ctrl.icon:'home'}}</i>
+        <div class="text">{{$ctrl.title}}</div>
+        <div class="badge white-text" ng-repeat="badge in $ctrl.badges" ng-if="badge.count>0" ng-class="badge.color+'-background'">
+            {{badge.count}}
+            <i class="material-icons">{{badge.icon}}</i>
+        </div>
+    </div>
+
+    <div class="body row" ng-repeat="item in $ctrl.items" ng-class="item.type=='link' ? 'hover-link' : ''">
+        <i ng-if="item.icon" class="icon material-icons">{{item.icon}}</i>
+        <i ng-if="!item.icon" class="icon"></i>
+
+
+        <div ng-if="item.type=='text'" class="text">{{item.text}}</div>
+        <a ng-if="item.type=='link'" href="{{item.link}}" class="text">{{item.text}}</a>
+
+    </div>
+</div>

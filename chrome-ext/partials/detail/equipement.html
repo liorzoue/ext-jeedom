@@ -1,0 +1,90 @@
+<card-retour url="'#/default/search'"></card-retour>
+
+<!-- Detail Equipement -->
+<div class="card">
+    <div class="title"> <i class="icon green-background material-icons md-white">info_outline</i>
+        <div class="text">{{DetailItem.name}}</div>
+    </div>
+
+    <div class="body row" ng-repeat="item in DetailItem.cmds | filter:{type: 'info', isVisible: '1'}">
+        <i class="icon"></i>
+        <div class="text">{{item.name}}</div>
+        <div class="badge no-margin-right">{{item.currentValue}} {{item.unite}}</div>
+        <i class="badge icon material-icons no-margin-left hover-link" ng-if="item.isHistorized == '1'" ng-click="getCommandGraph(DetailItem, item)">show_chart</i>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="body row hover-link" ng-repeat="item in EquipementDetail.cmds | filter:{type: 'action', isVisible: '1'}" ng-switch="item.logicalId">
+        <i class="icon material-icons" ng-switch-when="color">colorize</i>
+        <i class="icon material-icons" ng-switch-when="refresh">refresh</i>
+        <i class="icon material-icons" ng-switch-when="luminosity">brightness_low</i>
+        <i class="icon material-icons" ng-switch-default>input</i>
+            
+        
+        <div class="text">{{item.name}}</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="title">
+        <i class="icon green-background material-icons md-white">cog</i>
+        <div class="text">Etat</div>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Dernier contact</div>
+        <div class="badge no-margin-right">{{DetailItem.status.lastCommunication}}</div>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Visibilité</div>
+        <i class="badge icon material-icons no-margin-left">{{DetailItem.isVisible ? 'done' : 'clear'}}</i>
+    </div>
+
+    <div class="body row">
+        <i class="icon"></i>
+
+        <div class="text">Activé</div>
+        <i class="badge icon material-icons no-margin-left">{{DetailItem.isEnable ? 'done' : 'clear'}}</i>
+    </div>
+</div>
+
+<!-- Graphique -->
+<div class="card" ng-if="graphDetail">
+    <div class="title"> <i class="icon green-background material-icons md-white">show_chart</i>
+        <div class="text">{{graphDetail.name}}</div>
+    </div>
+    <div class="body row bar-chart">
+        <i class="icon material-icons">show_chart</i>
+        <div 
+            class="bar" 
+            ng-repeat="item in graphDetail.result"
+            style="height: {{90*(parseFloat(item.value)-graphDetail.stats.results.min) / (graphDetail.stats.results.max-graphDetail.stats.results.min)}}%;"></div>
+    </div>
+
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_top</i>
+        <div class="text">Maximum</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.max | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_center</i>
+        <div class="text">Moyenne</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.mean | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_center</i>
+        <div class="text">Mediane</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.median | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+    <div class="body row">
+        <i class="icon material-icons">vertical_align_bottom</i>
+        <div class="text">Minimum</div>
+        <div class="badge no-margin-right">{{graphDetail.stats.results.min | number:2}} {{graphDetail.item.unite}}</div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-JeedomApp.factory('Manifest', ['$http', function($http){
+JeedomApp.factory('Manifest', ['$http', 'Logging', function($http, Log){
 	var _instance;
     var _expireAt;
 
@@ -27,13 +27,14 @@ JeedomApp.factory('Manifest', ['$http', function($http){
 	};
 
     function Manifest() {
-        console.log('Manifest', 'update singleton');
+        Log.write(Log.level.INFO, 'Manifest', 'singleton: update');
         return _getManifest();
     }
 
     return {
-        getInstance: function () {            
-            console.log('Manifest', 'getInstance');
+        getInstance: function () {
+            Log.write(Log.level.INFO, 'Manifest', 'singleton: get');
+
             if (_hasExpired()) {
                 _instance = new Manifest();
 

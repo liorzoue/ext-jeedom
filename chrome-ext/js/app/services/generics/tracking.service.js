@@ -1,4 +1,6 @@
-JeedomApp.factory('Tracking', [function(){
+JeedomApp.factory('Tracking', ['Logging', function(Log){
+    var factoryName = 'Tracking';
+
     function _trackingMaker (event, category, variable) {
         var arry_track = [event, category];
 
@@ -6,7 +8,7 @@ JeedomApp.factory('Tracking', [function(){
         
         _gaq.push(arry_track);
 
-        console.log('tracking: ', arry_track);
+        Log.write(Log.level.INFO, factoryName, arry_track);
     }
 
     return {

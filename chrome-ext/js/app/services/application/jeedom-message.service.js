@@ -1,4 +1,4 @@
-JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', function(Icone, Service, Storage){
+JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', 'Logging', function(Icone, Service, Storage, Log){
     var _instance;
     var _expireAt;
 
@@ -24,13 +24,13 @@ JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', 
     }
 
     function Message() {
-        console.log('JeedomMessages', 'update singleton');
+        Log.write(Log.level.INFO, 'JeedomMessages', 'singleton: update');
         return _promiseMaker(_jeedom.Messages.getAll);
     }
 
     return {
-        getInstance: function () {            
-            console.log('JeedomMessages', 'getInstance');
+        getInstance: function () {
+            Log.write(Log.level.INFO, 'JeedomMessages', 'singleton: get');
             if (_hasExpired()) {
                 _instance = new Message();
 
