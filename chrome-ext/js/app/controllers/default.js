@@ -68,7 +68,6 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	$scope.showFavs = function () {
 		$scope.displayFavs = !$scope.displayFavs;
 		if ($scope.displayFavs) $scope.Favs = Favs.Get();
-		console.log('favs', $scope.Favs);
 		Tracking.event('favs', $scope.displayFavs ? 'show' : 'hide');
 	}
 
@@ -150,7 +149,12 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	}
 
-	if ($scope.Options.apiKey) $scope.init();
+	if ($scope.Options.apiKey) {
+        $scope.init();
+    } else {
+        Log.write(Log.level.INFO, 'GetOptions', 'No apiKey !');
+        $location.path('/settings');
+    }
 
 	Tracking.pageView('/default');
 }]);
