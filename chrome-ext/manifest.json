@@ -20,5 +20,11 @@
 		"512": "img/house512.png"
 	},
 
+	"applications": {
+		"gecko": {
+			"id": "jeedom-ext@liorzou.bzh"
+		}
+	},
+
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }
