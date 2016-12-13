@@ -7,6 +7,8 @@ JeedomApp.factory('Icone', ['Browser', function(Browser) {
             case 'red':
                 Browser.setBadgeBackgroundColor({ color: '#A10D47'});
                 break;
+            default:
+                Browser.setBadgeBackgroundColor({ color: color});
 
         }
     }
