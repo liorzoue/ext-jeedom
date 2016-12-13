@@ -16,7 +16,12 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 	}
 
 	$scope.getMessages = function () {
-	 	Messages.getInstance().then(function (result) { 
+	 	Messages.getInstance().then(function (result) {
+            var itemMessages = $filter('filter')($scope.MenuBadges, {id: 'messages'})[0];
+            if (itemMessages) { 
+                $scope.MenuBadges = ArrayService.removeElement($scope.MenuBadges, itemMessages);   
+            }
+
 	 		$scope.Options.Messages = result;
 	 		$scope.MenuBadges.push({id: 'messages', count: $scope.Options.Messages.length, color: "blue", icon: 'message'});
 	 		Log.write(Log.level.INFO, 'getMessages', $scope.Options.Messages);
