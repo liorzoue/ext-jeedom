@@ -38,6 +38,10 @@ JeedomApp.factory('JeedomMessages', ['Icone', 'JeedomService', 'jeedomStorage', 
                 _expireAt = _addMinutes(new Date(), 1);
             }
             return _instance;
+        },
+
+        resetInstance: function () {
+            _expireAt = null;
         }
     }
 }]);

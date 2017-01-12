@@ -10,6 +10,7 @@ JeedomControllers.controller('defaultCtrl', ['$scope', '$location', '$filter', '
 
 	$scope.clearAllMessages = function () {
 		Jeedom.Messages.removeAll();
+        Messages.resetInstance();
 		$scope.getMessages();
 
 		Tracking.event('messages', 'remove_all');
