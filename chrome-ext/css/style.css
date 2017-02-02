@@ -25,7 +25,7 @@ input.material {
   border: none;
   border-bottom: 1px solid #e5e5e5;
   outline: none;
-    outline-width: 100%; }
+  width: 100%; }
 
 a {
   display: flex;
