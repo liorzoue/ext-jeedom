@@ -1,6 +1,6 @@
 {
 	"name" :"Jeedom",
-	"version" :"1.1.0",
+	"version" :"1.1.1",
 	"manifest_version": 2,
 	"description" :"Accédez à Jeedom facilement, via votre navigateur !",
 	"browser_action" :
@@ -17,7 +17,13 @@
 		"page": "layouts/background.html"
 	},
 	"icons": { 
-		"512": "img/house512.png"
+		"512": "img/smart-home-512.png",
+		"256": "img/smart-home-256.png",
+		"128": "img/smart-home-128.png",
+		"64": "img/smart-home-64.png",
+		"32": "img/smart-home-32.png",
+		"24": "img/smart-home-24.png",
+		"16": "img/smart-home-16.png"
 	},
 
 	"applications": {
